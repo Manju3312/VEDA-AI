@@ -149,6 +149,10 @@ if (fs.existsSync(frontendIndexPath)) {
   app.get('*', (req, res) => {
     res.sendFile(frontendIndexPath);
   });
+} else {
+  app.get('/', (req, res) => {
+    res.status(200).send('VedaAI API is running. Frontend build not found on this deployment.');
+  });
 }
 
 const port = parseInt(process.env.PORT, 10) || 5000;

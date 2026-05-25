@@ -3,6 +3,7 @@ const fs = require('fs');
 const fsPromises = require('fs/promises');
 const path = require('path');
 const multer = require('multer');
+const mongoose = require('mongoose');
 const PDFDocument = require('pdfkit');
 const { PDFParse } = require('pdf-parse');
 const Assignment = require('../models/Assignment');
@@ -13,6 +14,16 @@ const paperDir = path.resolve(__dirname, '../downloads');
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(paperDir, { recursive: true });
+
+router.use((req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    res.status(503).json({
+      message: 'Database is not connected. Please set a valid MONGO_URI and redeploy.',
+    });
+    return;
+  }
+  next();
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
