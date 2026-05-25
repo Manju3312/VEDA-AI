@@ -1,34 +1,45 @@
 # VedaAI Assignment Builder
 
-A MERN stack assignment builder with a React frontend, Express API, and MongoDB persistence.
+A full-stack assignment builder with:
+- `frontend/` React + Vite
+- `backend/` Express API
+- MongoDB persistence
 
-## Run locally
+## Run Locally
 
-1. Open a terminal in this folder.
-2. Install backend dependencies:
+1. Install backend dependencies:
    ```bash
    npm install
    ```
-3. Install frontend dependencies:
+2. Install frontend dependencies:
    ```bash
-   cd frontend && npm install
+   npm install --prefix frontend
    ```
-4. Start the backend and frontend together:
+3. Create local env:
+   - Copy `backend/.env.example` to `backend/.env`
+4. Start app:
    ```bash
    npm run dev
    ```
-5. Open `http://localhost:3000` in your browser.
+5. Open:
+   - Frontend: `http://127.0.0.1:5174`
+   - API health: `http://127.0.0.1:5000/api/health`
 
-## Project structure
+## Deploy on Render
 
-- `backend/` — Express server, MongoDB connection, assignment API routes
-- `frontend/` — React + Vite UI for dashboard, assignment creation, and preview
+This repo includes `render.yaml` for one-click Blueprint deployment.
 
-## Environment
+### Required env var on Render
+- `MONGO_URI` (use MongoDB Atlas connection string)
 
-Copy `backend/.env.example` to `backend/.env` and set `MONGO_URI` if needed.
+### Steps
+1. Push latest code to GitHub.
+2. In Render, choose **Blueprint** deploy from the repository.
+3. Set `MONGO_URI` in the service Environment.
+4. Deploy.
 
-## Notes
+Render uses:
+- Build command: `npm install && npm run build`
+- Start command: `npm start`
 
-- The frontend proxies `/api` requests to the backend running on port `5000`
-- The backend uses MongoDB at `mongodb://127.0.0.1:27017/vedaai` by default
+The backend serves built frontend files from `frontend/dist` in production.

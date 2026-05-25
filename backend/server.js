@@ -7,7 +7,11 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const assignmentRoutes = require('./routes/assignments');
 
-dotenv.config();
+const envPath = path.join(__dirname, '.env');
+const envResult = dotenv.config({ path: envPath });
+if (envResult.error) {
+  dotenv.config();
+}
 connectDB();
 
 const app = express();
