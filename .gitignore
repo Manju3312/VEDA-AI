@@ -1,0 +1,10 @@
+node_modules/
+frontend/node_modules/
+.DS_Store
+/dist
+frontend/dist/
+/backend/.env
+backend/uploads/
+backend/downloads/
+backend/*.log
+frontend/public/downloads/*.pdf
