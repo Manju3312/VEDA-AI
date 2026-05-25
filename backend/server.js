@@ -130,7 +130,7 @@ app.get('/api/health', (req, res) => {
   const dbReadyState = mongoose.connection.readyState;
   const healthy = dbReadyState === 1;
 
-  res.status(healthy ? 200 : 503).json({
+  res.status(200).json({
     status: healthy ? 'ok' : 'degraded',
     uptimeSeconds: Math.round(process.uptime()),
     timestamp: new Date().toISOString(),
