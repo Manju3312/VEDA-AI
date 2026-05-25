@@ -142,11 +142,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-if (process.env.NODE_ENV === 'production') {
-  const frontendPath = path.join(__dirname, '../frontend/dist');
+const frontendPath = path.join(__dirname, '../frontend/dist');
+const frontendIndexPath = path.join(frontendPath, 'index.html');
+if (fs.existsSync(frontendIndexPath)) {
   app.use(express.static(frontendPath));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendPath, 'index.html'));
+    res.sendFile(frontendIndexPath);
   });
 }
 
